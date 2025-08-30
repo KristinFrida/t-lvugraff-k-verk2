@@ -31,7 +31,7 @@ window.onload = function init() {
     
     var vBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, 8*maxNumPoints, gl.DYNAMIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, 8*maxNumPoints * 3, gl.DYNAMIC_DRAW);
     
     var vPosition = gl.getAttribLocation(program, "vPosition");
     gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
@@ -40,15 +40,26 @@ window.onload = function init() {
     canvas.addEventListener("mousedown", function(e){
 
         gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer);
-        
-        // Calculate coordinates of new point
-        var t = vec2(2*e.offsetX/canvas.width-1, 2*(canvas.height-e.offsetY)/canvas.height-1);
-        
-        // Add new point behind the others
-        gl.bufferSubData(gl.ARRAY_BUFFER, 8*index, flatten(t));
+     
+        var rect = canvas.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var cx = 2 * (x / canvas.width) - 1;
+        var cy = 2 * ((canvas.height - y) / canvas.height) - 1;
 
-        index++;
-    } );
+        var r = 0.05;
+        var angles = [90, 210, 330];
+        var tri = [];
+        for (var i = 0; i < angles.length; i++) {
+            var a = angles[i] * Math.PI / 180.0;
+            tri.push(cx + r * Math.cos(a));
+            tri.push(cy + r * Math.sin(a));
+        }
+
+        var offsetBytes = 8 * index;
+        gl.bufferSubData(gl.ARRAY_BUFFER, offsetBytes, new Float32Array(tri));
+        index += 3;
+    });
 
     render();
 }
@@ -57,7 +68,7 @@ window.onload = function init() {
 function render() {
     
     gl.clear( gl.COLOR_BUFFER_BIT );
-    gl.drawArrays( gl.POINTS, 0, index );
+    gl.drawArrays( gl.TRIANGLES, 0, index );
 
     window.requestAnimFrame(render);
 }
