@@ -2,7 +2,7 @@
 
 var canvas, gl;
 var points = [];
-var NumTimesToSubdivide = 5;
+var NumTimesToSubdivide = 4;
 
 window.onload = function init() {
     canvas = document.getElementById("gl-canvas");
