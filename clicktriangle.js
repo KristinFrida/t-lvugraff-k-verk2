@@ -3,7 +3,6 @@
 //     Teiknar punkt á strigann þar sem notandinn smellir
 //     með músinni
 //
-//    Hjálmtýr Hafsteinsson, ágúst 2025
 /////////////////////////////////////////////////////////////////
 var canvas;
 var gl;
