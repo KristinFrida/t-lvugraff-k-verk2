@@ -2,7 +2,6 @@
 //    Sýnidæmi í Tölvugrafík
 //     Teikna nálgun á hring sem TRIANGLE_FAN
 //
-//    Hjálmtýr Hafsteinsson, ágúst 2025
 /////////////////////////////////////////////////////////////////
 var canvas;
 var gl;

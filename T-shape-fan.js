@@ -2,7 +2,6 @@
 //    Sýnisforrit í Tölvugrafík
 //     T-laga form teiknað með TRIANGLE-FAN
 //
-//    Hjálmtýr Hafsteinsson, ágúst 2025
 //////////////////////////////////////////////////////////////////////
 var gl;
 var points;
